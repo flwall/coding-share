@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
         taskService = new TaskService(PlayerNames);
 
         Assert.IsNotNull(_currentText, "Text Field should not be null");
+        
         _currentText.text = SwipeToNextTask();
 
         Debug.Log($"List of all Players: {string.Join(",", PlayerNames)}");
@@ -39,6 +40,8 @@ public class GameController : MonoBehaviour
 
     private string SwipeToNextTask()
     {
-        return taskService.RandomTask(current:_currentText.text);
+
+        return taskService.RandomTask(current: _currentText.text);
+        
     }
 }

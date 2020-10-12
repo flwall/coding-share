@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro.EditorUtilities;
 using UnityEngine;
@@ -12,13 +13,14 @@ public class MenuController : MonoBehaviour
 
     private List<InputField> names = new List<InputField>();
 
+
     // Start is called before the first frame update
     void Start()
     {
 
-        var start = Instantiate(this.InputPrefab, this.transform, true);
-        start.ActivateInputField();
-        start.gameObject.SetActive(true);
+        var start = Instantiate(this.InputPrefab, this.transform, false);
+
+
         names.Add(start);
 
     }
@@ -29,9 +31,15 @@ public class MenuController : MonoBehaviour
 
     }
 
+    
+
+
+
+
     public void StartClicked()
     {
-        GameController.PlayerNames = names.Select(f => f.text).ToArray();
+        GameController.PlayerNames = names.Select(f => f.text).ToArray();       //.Select is des gleiche wie a viel längere foreach-Schleife
+                                                                                //, die bei jedem InputField den Text nimmt und ihn zu den "PlayerNames" hinzufügt.
 
         SceneManager.LoadScene("GameScene");
     }
@@ -53,8 +61,7 @@ public class MenuController : MonoBehaviour
 
         var clone = Instantiate(this.InputPrefab, this.transform, true);
         clone.transform.localPosition = new Vector3(0, 90 - 30 * (names.Count), 0);
-        clone.ActivateInputField();
-        clone.gameObject.SetActive(true);
+        
         EventSystem.current.SetSelectedGameObject(clone.gameObject);
         
         names.Add(clone);
